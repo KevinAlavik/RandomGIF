@@ -40,11 +40,10 @@ os.makedirs("images", exist_ok=True)
 num_iterations = int(sys.argv[1]) if len(sys.argv) > 1 else 60
 
 for _ in range(num_iterations):
-    width = 640
-    height = 480
+    width = 100
+    height = 100
     image_name, data_url = generate_random_image(width, height)
-    print("Data URL:", data_url)
-    print("Image Name:", image_name)
+    print(data_url)
 
     # Fetch the image data using urlopen
     response = urlopen(data_url)
@@ -55,8 +54,6 @@ for _ in range(num_iterations):
     file_path = os.path.join("images", file_name)
     with open(file_path, "wb") as image_file:
         image_file.write(image_data)
-
-    print("Image saved as:", file_path)
 
 # Get all JPEG files in the "images" directory
 image_files = glob.glob("images/*.jpg")
@@ -77,10 +74,6 @@ images[0].save(
     loop=0
 )
 
-print("Animated GIF saved as:", gif_file_path)
-
 # Remove individual JPEG files
 for file_path in image_files:
     os.remove(file_path)
-
-print("Individual JPEG files removed.")
