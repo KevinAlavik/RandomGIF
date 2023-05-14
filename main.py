@@ -4,10 +4,15 @@ import io
 import os
 import random
 import string
-from PIL import Image
+from PIL import Image, ImageEnhance  # Import ImageEnhance module
 import numpy as np
 from urllib.request import urlopen
 import sys
+
+duration = 2
+height = 100
+width = 100
+
 
 def generate_random_image(width, height):
     # Generate random pixel data
@@ -16,11 +21,16 @@ def generate_random_image(width, height):
     # Create PIL image from pixel data
     image = Image.fromarray(pixels)
 
+    # Adjust saturation
+    enhancer = ImageEnhance.Color(image)
+    saturation_factor = 1.5  # Saturation adjustment factor (modify as needed)
+    enhanced_image = enhancer.enhance(saturation_factor)
+
     # Create an in-memory buffer to hold the image data
     buffer = io.BytesIO()
 
-    # Save the image to the buffer in JPEG format
-    image.save(buffer, format='JPEG')
+    # Save the enhanced image to the buffer in JPEG format
+    enhanced_image.save(buffer, format='JPEG')
 
     # Encode the image data as base64
     encoded_image = base64.b64encode(buffer.getvalue()).decode('utf-8')
@@ -40,10 +50,9 @@ os.makedirs("images", exist_ok=True)
 num_iterations = int(sys.argv[1]) if len(sys.argv) > 1 else 60
 
 for _ in range(num_iterations):
-    width = 100
-    height = 100
+    width = width
+    height = height
     image_name, data_url = generate_random_image(width, height)
-    print(data_url)
 
     # Fetch the image data using urlopen
     response = urlopen(data_url)
@@ -70,10 +79,12 @@ images[0].save(
     gif_file_path,
     save_all=True,
     append_images=images[1:],
-    duration=200,
+    duration=duration,
     loop=0
 )
 
 # Remove individual JPEG files
 for file_path in image_files:
     os.remove(file_path)
+    
+print("Successfully generated the GIF")
