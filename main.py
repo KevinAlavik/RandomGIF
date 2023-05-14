@@ -9,9 +9,9 @@ import numpy as np
 from urllib.request import urlopen
 import sys
 
-duration = 2
-height = 100
-width = 100
+duration = int(sys.argv[4]) if len(sys.argv) > 1 else 200
+height = int(sys.argv[2]) if len(sys.argv) > 1 else 64
+width = int(sys.argv[3]) if len(sys.argv) > 1 else 64
 
 
 def generate_random_image(width, height):

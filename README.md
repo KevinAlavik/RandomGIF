@@ -3,10 +3,10 @@ This is a very small project i made becuz i was bored.
 This generates an GIF from randomly generated JPEG files.
 ## Usage
 ```bash
-python3 main.py imageAmmount
+python3 main.py imageAmmount height width duration
 ```
 ```bash
-python3 main.py 5
+python3 main.py 5 64 64 200
 ```
 ## Example GIF
 ![animated](https://github.com/KevinAlavik/RandomGIF/assets/95900603/fa663993-bab4-43d6-8e1b-ff27b0bfa420)
